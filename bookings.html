@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" class="js-off">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book a Service | GTA Mobile Tire Services</title>
+<meta name="description" content="Schedule a tire swap, inspection, or other non-emergency service with GTA Mobile Tire Services. Pick a service, choose a time, and we'll confirm by text.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/icon-512.png">
+<link rel="apple-touch-icon" href="assets/img/icon-180.png">
+<meta name="theme-color" content="#F7F6F2">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GTA Mobile Tire Services">
+<meta property="og:locale" content="en_CA">
+<meta property="og:title" content="Book a Service | GTA Mobile Tire Services">
+<meta property="og:description" content="Schedule a tire swap, inspection, or other non-emergency service with GTA Mobile Tire Services. Pick a service, choose a time, and we'll confirm by text.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Book a Service | GTA Mobile Tire Services">
+<meta name="twitter:description" content="Schedule a tire swap, inspection, or other non-emergency service with GTA Mobile Tire Services. Pick a service, choose a time, and we'll confirm by text.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--steel-soft); }
+  .field input, .field textarea, .field select {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-s);
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--signal); }
+  .field textarea { resize: vertical; min-height: 88px; }
+  .form-note { font-size: 0.82rem; color: var(--steel); }
+  .field-row { display: grid; gap: var(--sp-4); grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .field-row { grid-template-columns: 1fr 1fr; } }
+
+  .service-picker { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+  .service-picker input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .service-picker label {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+    color: var(--steel);
+    cursor: pointer;
+    transition: border-color .15s, background-color .15s, color .15s;
+  }
+  .service-picker input:checked + label {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--chalk);
+  }
+  .service-picker input:focus-visible + label { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+  .urgent-note {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-5);
+    border: 1.5px dashed var(--line);
+    border-radius: var(--radius-m);
+    margin-bottom: var(--sp-7);
+  }
+  .urgent-note p { font-size: 0.9rem; margin: 0; }
+  .urgent-note a { color: var(--signal-dim); font-weight: 600; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <img class="brand__logo" fetchpriority="high" src="assets/img/logo.png" alt="Mobile Mechanic Toronto" width="1282" height="180">
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="bookings.html" aria-current="page">Bookings</a>
+      <a href="services.html">Services</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="tel:+16475717200">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (647) 571-7200
+      </a>
+    </div>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div>
+      <ul class="container">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bookings.html">Bookings</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div class="container">
+        <a class="btn btn-primary btn-block" href="tel:+16475717200">Call (647) 571-7200</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero section--tight">
+    <div class="container" style="max-width:640px;">
+      <p class="eyebrow">SCHEDULE SERVICE</p>
+      <h1>Book ahead — for everything that isn't an emergency.</h1>
+      <p class="lede" style="max-width:56ch;">Pick a service and a time that works, and we'll confirm by text. For flats, breakdowns, or anything happening right now, skip this and call — we're open 24/7.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 640px;">
+
+      <div class="urgent-note reveal">
+        <p>Need help <strong>right now</strong>? Don't wait on a text back —</p>
+        <a href="tel:+16475717200">Call (647) 571-7200</a>
+      </div>
+
+      <div class="ticket reveal">
+        <div class="ticket__head">
+          <div><p class="ticket__job">NEW BOOKING</p><h4>Schedule a Visit</h4></div>
+          <span class="ticket__status">DRAFT</span>
+        </div>
+        <div class="ticket__perf"></div>
+        <form class="ticket__body stack gap-4" id="booking-form">
+
+          <div class="field">
+            <label for="service">Service needed</label>
+            <div class="service-picker" role="radiogroup" aria-label="Service needed" id="service-picker">
+              <input type="radio" name="service" id="svc-flat" value="Flat Tire Repair" checked>
+              <label for="svc-flat">Flat Tire Repair</label>
+
+              <input type="radio" name="service" id="svc-replace" value="Tire Replacement">
+              <label for="svc-replace">Tire Replacement</label>
+
+              <input type="radio" name="service" id="svc-battery" value="Battery Replacement">
+              <label for="svc-battery">Battery Replacement</label>
+
+              <input type="radio" name="service" id="svc-starter" value="Starter / Alternator">
+              <label for="svc-starter">Starter / Alternator</label>
+
+              <input type="radio" name="service" id="svc-brakes" value="Brakes">
+              <label for="svc-brakes">Brakes</label>
+
+              <input type="radio" name="service" id="svc-oil" value="Oil &amp; Fluid Service">
+              <label for="svc-oil">Oil &amp; Fluid Service</label>
+
+              <input type="radio" name="service" id="svc-ppi" value="Pre-Purchase Inspection">
+              <label for="svc-ppi">Pre-Purchase Inspection</label>
+
+              <input type="radio" name="service" id="svc-other" value="Other">
+              <label for="svc-other">Other</label>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="phone">Callback number</label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="(___) ___-____">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="vehicle">Vehicle (year, make, model)</label>
+            <input type="text" id="vehicle" name="vehicle" placeholder="e.g. 2019 Toyota Corolla">
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="date">Preferred date</label>
+              <input type="date" id="date" name="date">
+            </div>
+            <div class="field">
+              <label for="window">Preferred time</label>
+              <select id="window" name="window">
+                <option value="Morning (8am–11am)">Morning (8am–11am)</option>
+                <option value="Midday (11am–2pm)">Midday (11am–2pm)</option>
+                <option value="Afternoon (2pm–5pm)">Afternoon (2pm–5pm)</option>
+                <option value="Evening (5pm–8pm)">Evening (5pm–8pm)</option>
+                <option value="I'm flexible">I'm flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="location">Where should we come? (or write "in-shop")</label>
+            <input type="text" id="location" name="location" placeholder="Address, or 'in-shop'">
+          </div>
+
+          <div class="field">
+            <label for="notes">Anything else we should know?</label>
+            <textarea id="notes" name="notes" placeholder="Optional"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Request this booking
+          </button>
+          <p class="form-note">This sends your request as a text — nothing is booked until we text back to confirm your time.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark section--tight">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow--on-dark">HOW BOOKING WORKS</p>
+        <h2>Three steps to a confirmed time.</h2>
+      </div>
+      <div class="steps" data-reveal-group>
+        <div class="step reveal">
+          <h3>Request a time</h3>
+          <p>Pick a service, a date, and a time window that works for you.</p>
+        </div>
+        <div class="step reveal">
+          <h3>We confirm by text</h3>
+          <p>We'll text back to lock in the exact time, or offer alternatives if that slot's taken.</p>
+        </div>
+        <div class="step reveal">
+          <h3>We show up (or you do)</h3>
+          <p>Mobile appointments come to your address. In-shop bookings, just come by at your confirmed time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="brand"><img class="brand__logo brand__logo--footer" loading="lazy" decoding="async" src="assets/img/logo-light.png" alt="Mobile Mechanic Toronto" width="1282" height="180"></p>
+      <p style="margin-top: var(--sp-4); max-width: 34ch;">Mobile and in-shop tire &amp; auto repair across the GTA — flat repair, tire replacement, batteries, starters, alternators, and more.</p>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <div class="footer-links">
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="bookings.html">Bookings</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="footer-links">
+        <a href="tel:+16475717200" class="mono">(647) 571-7200</a>
+        <span>Serving Toronto &amp; the GTA</span>
+        <span>Open 24/7</span>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 GTA Mobile Tire Services</span>
+    <span>4.7★ · 268 Google reviews</span>
+  </div>
+</footer>
+
+<div class="call-bar">
+  <a class="btn btn-outline" href="sms:+16475717200">Text</a>
+  <a class="btn btn-primary" href="tel:+16475717200">Call (647) 571-7200</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('booking-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var service = document.querySelector('input[name="service"]:checked');
+    var serviceName = service ? service.value : 'a service';
+    var name = document.getElementById('name').value.trim();
+    var vehicle = document.getElementById('vehicle').value.trim();
+    var date = document.getElementById('date').value;
+    var windowVal = document.getElementById('window').value;
+    var location = document.getElementById('location').value.trim();
+    var notes = document.getElementById('notes').value.trim();
+
+    var lines = ['Hi, this is ' + (name || 'a customer') + '. I\'d like to book: ' + serviceName + '.'];
+    if (vehicle) lines.push('Vehicle: ' + vehicle + '.');
+    if (date) lines.push('Preferred date: ' + date + ', ' + windowVal + '.');
+    else lines.push('Preferred time: ' + windowVal + '.');
+    if (location) lines.push('Location: ' + location + '.');
+    if (notes) lines.push('Notes: ' + notes);
+
+    var body = encodeURIComponent(lines.join(' '));
+    window.location.href = 'sms:+16475717200?&body=' + body;
+  });
+</script>
+</body>
+</html>
